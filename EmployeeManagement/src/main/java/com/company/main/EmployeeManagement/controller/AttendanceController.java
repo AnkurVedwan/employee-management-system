@@ -3,17 +3,13 @@ package com.company.main.EmployeeManagement.controller;
 import com.company.main.EmployeeManagement.Util.ResponseUtil;
 import com.company.main.EmployeeManagement.dto.ApiResponse;
 import com.company.main.EmployeeManagement.dto.AttendanceDTO;
-import com.company.main.EmployeeManagement.dto.EmployeeDTO;
 import com.company.main.EmployeeManagement.service.AttendanceService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
-
 
 @RestController
 @RequestMapping("/api/attendance")
@@ -25,7 +21,7 @@ public class AttendanceController {
         this.attendanceService = attendanceService;
     }
 
-    @PostMapping("employee/{employeeId}/check-in")
+    @PostMapping("employee/{employeeId}/check-in") // --> employee check in time
     public ResponseEntity<ApiResponse<AttendanceDTO>> saveAttendance(@PathVariable Long employeeId, @RequestBody AttendanceDTO attendanceDTO, HttpServletRequest request)
     {
         return ResponseEntity.ok(
@@ -37,7 +33,7 @@ public class AttendanceController {
         );
     }
 
-    @PatchMapping("/employee/{employeeId}/check-out/date")
+    @PatchMapping("/employee/{employeeId}/check-out/date") // --> employee check out time
     public ResponseEntity<ApiResponse<AttendanceDTO>> saveAttendanceCheckOut(@PathVariable Long employeeId,@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,HttpServletRequest request)
     {
         return ResponseEntity.ok(
@@ -127,7 +123,7 @@ public class AttendanceController {
         );
     }
 
-    @GetMapping("/manager/{managerId}/employee/{employeeId}/date")
+    @GetMapping("/manager/{managerId}/employee/{employeeId}/month")
     public ResponseEntity<ApiResponse<List<AttendanceDTO>>> getByMonthAndManager(@PathVariable Long managerId,
                                           @PathVariable Long employeeId,
                                           @RequestParam(value = "year") int year,

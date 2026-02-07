@@ -2,15 +2,12 @@ package com.company.main.EmployeeManagement.controller;
 
 import com.company.main.EmployeeManagement.Util.ResponseUtil;
 import com.company.main.EmployeeManagement.dto.ApiResponse;
-import com.company.main.EmployeeManagement.dto.LeaveBalanceDTO;
 import com.company.main.EmployeeManagement.dto.LeaveRequestDTO;
 import com.company.main.EmployeeManagement.service.LeaveRequestService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.image.ReplicateScaleFilter;
 import java.util.List;
 import java.util.Map;
 
@@ -150,7 +147,7 @@ public class LeaveRequestController {
         return leaveRequestService.rejectLeaveByAdmin(adminId,leaveId,data);
     }
 
-    @PatchMapping("/admin/leave/{leaveId}")
+    @PatchMapping("/admin/leave/{leaveId}/approve")
     public LeaveRequestDTO approveLeaveOfAdmin(@PathVariable Long leaveId)
     {
         return leaveRequestService.approveLeaveOfAdmin(leaveId);

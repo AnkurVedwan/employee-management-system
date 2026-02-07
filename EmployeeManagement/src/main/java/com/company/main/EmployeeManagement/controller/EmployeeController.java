@@ -1,5 +1,6 @@
 package com.company.main.EmployeeManagement.controller;
 
+import com.company.main.EmployeeManagement.Security.service.AuthService;
 import com.company.main.EmployeeManagement.Util.ResponseUtil;
 import com.company.main.EmployeeManagement.dto.ApiResponse;
 import com.company.main.EmployeeManagement.dto.EmployeeDTO;
@@ -19,17 +20,18 @@ import java.util.Map;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
-    private final LeaveRequestRepository leaveRequestRepository;
+    private final AuthService authService;
 
-    public EmployeeController(EmployeeService employeeService,
-                              LeaveRequestRepository leaveRequestRepository) {
+    public EmployeeController(EmployeeService employeeService, AuthService authService) {
         this.employeeService = employeeService;
-        this.leaveRequestRepository = leaveRequestRepository;
+        this.authService = authService;
     }
 
     @PostMapping("/admin/{adminId}/department/{departmentId}")  // adding manager
     public ResponseEntity<ApiResponse<EmployeeDTO>> saveManager(@PathVariable Long departmentId, @PathVariable Long adminId,@Valid @RequestBody EmployeeDTO employeeDTO, HttpServletRequest request)
     {
+        authService.sign(employeeDTO);
+
         return ResponseEntity.ok(
                 ResponseUtil.success(
                         "Manager saved successfully",
@@ -42,6 +44,8 @@ public class EmployeeController {
     @PostMapping("/admin/{adminId}/department/{departmentId}/manager/{managerId}")
     public ResponseEntity<ApiResponse<EmployeeDTO>> saveEmployee(@PathVariable Long adminId, @PathVariable Long departmentId, @PathVariable Long managerId,@Valid @RequestBody EmployeeDTO employeeDTO,HttpServletRequest request)
     {
+        authService.sign(employeeDTO);
+
         return ResponseEntity.ok(
                 ResponseUtil.success(
                         "Employee saved successfully",
@@ -111,7 +115,7 @@ public class EmployeeController {
         );
     }
 
-    @GetMapping("/manager/{employeeId}")
+    @GetMapping("/{employeeId}/get-manager")
     public ResponseEntity<ApiResponse<EmployeeDTO>> getManagerId(@PathVariable Long employeeId,HttpServletRequest request)
     {
         return ResponseEntity.ok(

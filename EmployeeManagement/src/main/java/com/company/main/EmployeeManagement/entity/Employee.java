@@ -30,6 +30,8 @@ public class Employee {
 
     private String email;
 
+    private String username;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

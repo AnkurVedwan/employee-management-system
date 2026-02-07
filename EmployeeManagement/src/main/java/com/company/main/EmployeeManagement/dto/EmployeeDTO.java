@@ -30,6 +30,9 @@ public class EmployeeDTO {
     @NotBlank(message = "Name Cannot Be Blank")
     private String name;
 
+    @NotBlank(message = "Name Cannot Be Blank")
+    private String username;
+
     @NotBlank(message = "email cannot be blank")
     @Email(message = "email should be in format")
     private String email;

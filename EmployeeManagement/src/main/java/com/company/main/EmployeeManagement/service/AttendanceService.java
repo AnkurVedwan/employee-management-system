@@ -1,5 +1,6 @@
 package com.company.main.EmployeeManagement.service;
 
+import com.company.main.EmployeeManagement.Security.dto.LoginRequestDTO;
 import com.company.main.EmployeeManagement.dto.AttendanceDTO;
 import com.company.main.EmployeeManagement.entity.Attendance;
 import com.company.main.EmployeeManagement.entity.Department;
@@ -37,6 +38,14 @@ public class AttendanceService {
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new ResourceNotFoundException("Employee Not Found with id : "+employeeId));
         attendance.setEmployee(employee);
         return modelMapper.map(attendanceRepository.save(attendance), AttendanceDTO.class);
+    }
+
+    public void saveAttendanceByLogin(LoginRequestDTO loginRequestDTO)
+    {
+        Employee employee = employeeRepository.findByUsername(loginRequestDTO.getUsername());
+        Attendance attendance = new Attendance();
+        attendance.setEmployee(employee);
+        attendanceRepository.save(attendance);
     }
 
     public AttendanceDTO saveAttendanceCheckOut(Long employeeId, LocalDate date) {

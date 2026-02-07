@@ -36,7 +36,7 @@ public class DepartmentController {
         );
     }
 
-    @PatchMapping("{departmentId}/admin/{adminId}")
+    @PatchMapping("/admin/{adminId}/department/{departmentId}")
     public ResponseEntity<ApiResponse<DepartmentDTO>> updateDepartment(@Valid @RequestBody Map<String,Object> data,@PathVariable Long departmentId,@PathVariable Long adminId,HttpServletRequest request)
     {
         return ResponseEntity.ok(

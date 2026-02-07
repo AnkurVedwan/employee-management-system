@@ -69,7 +69,7 @@ Controller Layer  →  Service Layer  →  Repository Layer  →  Database
 * Create and assign departments
 * Assign roles (Employee / Manager / Admin)
 * View attendance of all employees
-* Reject or cancel any leave request of only manager
+* Reject or approve any leave request of only manager
 
 ---
 

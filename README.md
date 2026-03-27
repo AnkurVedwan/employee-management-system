@@ -163,13 +163,66 @@ All error responses also follow the same API response format.
 
 ---
 
+### 🚫 Secure Logout with Token Blacklisting & Attendance Automation
+
+This project implements an advanced **secure logout mechanism** combined with **automatic attendance tracking**, simulating real-world enterprise behavior.
+
+### 🔒 Token Blacklisting
+
+* On logout, the user's JWT token is **stored in a blacklist**
+* Every incoming request is validated against the blacklist
+* If the token is blacklisted → request is rejected
+
+👉 This ensures **true logout functionality in a stateless JWT system**
+
+---
+
+### ⏱ Attendance Automation Logic
+
+#### ✅ On Login (Check-In)
+
+* When a user successfully logs in:
+
+  * JWT token is generated
+  * **Check-in time is automatically recorded** in the Attendance module
+
+#### 🚪 On Logout (Check-Out)
+
+* When a user logs out:
+
+  * JWT token is blacklisted
+  * **Check-out time is automatically updated** for that user
+
+---
+
+### 🎯 Key Benefits
+
+* Eliminates manual attendance marking
+* Ensures **accurate login/logout tracking**
+* Prevents reuse of invalid/expired tokens
+* Simulates **real corporate attendance systems**
+
+---
+
+### 🔁 Flow Summary
+
+1. User logs in → JWT generated + Check-in marked
+2. User accesses secured APIs using token
+3. User logs out → Token blacklisted + Check-out marked
+4. Any further request with same token → ❌ Rejected
+
+---
+
 ## 🎯 What This Project Demonstrates
 
-* Real-world backend workflows
-* Clean layered architecture
-* JPA entity relationships
-* Centralized exception handling
-* Standardized API responses
+* Real-world backend workflows and business logic implementation
+* Clean layered architecture (Controller → Service → Repository)
+* Secure authentication & authorization using JWT and Spring Security
+* Advanced logout handling using token blacklisting
+* Automated attendance system integrated with login/logout flow
+* JPA entity relationships and database design
+* Centralized exception handling using `@RestControllerAdvice`
+* Standardized and production-ready API response structure
 
 ---
 
@@ -182,12 +235,9 @@ This project goes beyond basic CRUD and demonstrates real business logic commonl
 ---
 
 ## 🔮 Future Enhancements
-
-* Spring Security & JWT authentication
 * Swagger / OpenAPI documentation
 * Pagination and sorting
 * Docker support
-
 ---
 
 ⭐ If you find this project useful, feel free to star the repository!

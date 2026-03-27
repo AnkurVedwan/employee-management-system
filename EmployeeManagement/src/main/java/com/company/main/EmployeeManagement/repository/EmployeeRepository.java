@@ -1,6 +1,7 @@
 package com.company.main.EmployeeManagement.repository;
 
 import com.company.main.EmployeeManagement.entity.Employee;
+import com.company.main.EmployeeManagement.entity.type.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findAllByManagerId(Long managerId);
 
     Employee findByUsername(String username);
+
+    boolean existsByRole(Role role);
 }

@@ -30,6 +30,14 @@ public class EmployeeService {
         this.departmentRepository = departmentRepository;
     }
 
+    public EmployeeDTO saveAdmin(Long departmentId,EmployeeDTO employeeDTO)
+    {
+        Employee employee = modelMapper.map(employeeDTO,Employee.class);
+        Department department = departmentRepository.findById(departmentId).orElseThrow(()->new ResourceNotFoundException("Department Not Found"));
+        employee.setDepartment(department);
+        return modelMapper.map(employeeRepository.save(employee),EmployeeDTO.class);
+    }
+
     public EmployeeDTO saveManager(Long departmentId, Long adminId, EmployeeDTO employeeDTO) {
 
         Employee employee = modelMapper.map(employeeDTO,Employee.class);

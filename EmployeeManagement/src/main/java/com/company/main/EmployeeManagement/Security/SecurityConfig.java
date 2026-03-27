@@ -35,8 +35,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/leave-balance/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/leave-balance/manager/**").hasRole("MANAGER")
                         .requestMatchers("/api/request/admin/**").hasRole("ADMIN")
-                        .requestMatchers("api/request/manager/**").hasRole("MANAGER")
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/api/request/manager/**").hasRole("MANAGER")
+                        .requestMatchers("/auth/**","/api/create-admin/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults());
